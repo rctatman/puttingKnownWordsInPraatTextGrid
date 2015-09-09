@@ -50,10 +50,7 @@ for filename in glob.iglob('*TextGrid.txt'):
 			if is_odd(i):
 				# get the next word from file2 and saves it to a variable
 				j = (i/2)
-				print(j)	
-				if word = lines[j]
-
-				print(word)
+				word = lines[j]
 				word = word.replace("\n", "")
 
 				# iterate our counter
@@ -76,7 +73,7 @@ for filename in glob.iglob('*TextGrid.txt'):
 			newFile.write(str(line))
 	
 
-	print "done!"
+	print  filename + " done!"
 
 	# close our files
 	newFile.close()
