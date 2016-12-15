@@ -15,25 +15,24 @@ import glob
 import os
 
 # finds every TextGrid.txt (Renamed text grids) in our current directory 
-for filename in glob.iglob('*TextGrid.txt'):
+for filename in glob.iglob('*.TextGrid'):
 	# opens existing file in same directory
-	# File 1 should contain a list of words (or sentences; whatever stretch of 
+	# inputWordlist should contain a list of words (or sentences; whatever stretch of 
 	# text was deliniated by pauses) with each utterance as a new line. Do not include 
 	# a header. 
-	file2 = open(filename.replace("TextGrid", ""), "r")
+	inputWordlist = open(filename.replace(".TextGrid", ".txt"), "r")
 		
-	# File 2 should be a textgrid file (change the file extension to .txt) that
-	# marks pauses. It should begin with a pause. 	
-	file1 = open(filename, "r")
+	# inputTextgrid should be a textgrid file with pauses deliniated. It should begin with a pause. 	
+	inputTextgrid = open(filename, "r")
 
 	# open a new file to write to 
 	newFile = open((os.path.splitext(filename)[0]+ '_inserted.TextGrid'), "w")
 
 
-	# set a counter to help us with stepping thorugh the lines of file2 
+	# set a counter to help us with stepping thorugh the lines of inputWordlist 
 	i = 0
-	# set up an object containing all the lines from file2
-	lines=file2.readlines()
+	# set up an object containing all the lines from inputWordlist
+	lines=inputWordlist.readlines()
 
 	# defines a function for determining if a number is odd
 	def is_odd(num):
@@ -44,11 +43,11 @@ for filename in glob.iglob('*TextGrid.txt'):
 	# and every alternating subsecuent line should contain silences. If it is a silence, no change is
 	# made and the text is copied exactly and the counter is iterated. If it is even (non-silent) then 
 	# the next word from our wordlist textfile is inserted into the textgrid. 
-	for line in file1: 
+	for line in inputTextgrid: 
 		# checks to see if a line contains the string "text"
 		if "text" in line:
 			if is_odd(i):
-				# get the next word from file2 and saves it to a variable
+				# get the next word from inputWordlist and saves it to a variable
 				j = (i/2)
 				word = lines[j]
 				word = word.replace("\n", "")
@@ -73,9 +72,9 @@ for filename in glob.iglob('*TextGrid.txt'):
 			newFile.write(str(line))
 	
 
-	print  filename + " done!"
+print  filename + " done!"
 
-	# close our files
-	newFile.close()
-	file1.close()
-	file2.close()
+# close our files
+newFile.close()
+inputTextgrid.close()
+inputWordlist.close()
